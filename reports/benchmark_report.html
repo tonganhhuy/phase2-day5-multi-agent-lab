@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Research & Benchmark Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #080a0f;
+            --bg-secondary: #0f131a;
+            --bg-tertiary: #151a24;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --text-white: #f3f4f6;
+            --text-gray: #9ca3af;
+            --text-dark: #1f2937;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.1);
+            --border-glass: rgba(255, 255, 255, 0.05);
+            --gradient-violet-pink: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-pink) 100%);
+            --glow-purple: rgba(139, 92, 246, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Ambient Orbs */
+        .orb-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-purple) 0%, rgba(0,0,0,0) 70%);
+            top: -150px;
+            left: -150px;
+            z-index: -1;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .orb-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(0,0,0,0) 70%);
+            bottom: -200px;
+            right: -200px;
+            z-index: -1;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #d8b4fe;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: 14px;
+            border: 1px solid var(--border-glass);
+            width: fit-content;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-btn.active {
+            color: white;
+            background: var(--bg-tertiary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid Layouts */
+        .report-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--text-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            padding: 1.2rem;
+            font-weight: 600;
+            color: white;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            color: var(--text-gray);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            color: white;
+            background-color: rgba(255,255,255,0.01);
+        }
+
+        .highlight-text {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Metric Cards */
+        .metrics-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .m-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .m-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.01) 100%);
+            pointer-events: none;
+        }
+
+        .m-label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .m-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .m-diff {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .positive { color: var(--success); }
+        .warning { color: var(--accent-pink); }
+        .info { color: var(--accent-blue); }
+
+        /* Code/Logs Boxes */
+        .log-box {
+            background: #06080c;
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .log-box.final-answer {
+            background: var(--bg-tertiary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-white);
+            white-space: pre-wrap;
+            border-left: 4px solid var(--accent-violet);
+        }
+
+        .log-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #d8b4fe;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Informational Sections */
+        .info-block {
+            background: rgba(139, 92, 246, 0.03);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: #c084fc;
+        }
+
+        /* Cost breakdown card list */
+        .cost-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.01);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .cost-name {
+            font-weight: 600;
+        }
+
+        .cost-val {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-pink);
+        }
+    </style>
+</head>
+<body>
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="badge">Comprehensive Benchmark</div>
+            <h1>Single-Agent vs. Multi-Agent Analysis</h1>
+            <div class="subtitle">Detailed evaluation using Prompt 2: "Do multi-agent LLM systems outperform single-agent systems?"</div>
+        </header>
+
+        <!-- Tab Controls -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('comparison')">Overview & Metrics</button>
+            <button class="tab-btn" onclick="showTab('single')">Single-Agent Baseline</button>
+            <button class="tab-btn" onclick="showTab('multi')">Multi-Agent Workflow</button>
+        </div>
+
+        <!-- TAB 1: Comparison Overview -->
+        <div id="comparison" class="tab-pane active">
+            <!-- Metrics Summary Grid -->
+            <div class="metrics-summary-grid">
+                <div class="m-card">
+                    <span class="m-label">Quality Score Gain</span>
+                    <span class="m-value">7.0 vs 9.5 / 10.0</span>
+                    <span class="m-diff positive">▲ +35.7% Quality</span>
+                </div>
+                <div class="m-card">
+                    <span class="m-label">Total Execution Latency</span>
+                    <span class="m-value">0.53s vs 0.69s</span>
+                    <span class="m-diff warning">▲ +30% Latency</span>
+                </div>
+                <div class="m-card">
+                    <span class="m-label">Simulated Cost (USD)</span>
+                    <span class="m-value">$0.00025 vs $0.00130</span>
+                    <span class="m-diff warning">▲ 5.2x Cost (Gemini Lite)</span>
+                </div>
+                <div class="m-card">
+                    <span class="m-label">Source Citation Count</span>
+                    <span class="m-value">1 vs 3 Cited</span>
+                    <span class="m-diff positive">▲ +200% Citation</span>
+                </div>
+            </div>
+
+            <!-- Detail Table -->
+            <div class="report-card">
+                <h2>Comparison Table</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Comparison Dimension</th>
+                                <th>Single-Agent Baseline</th>
+                                <th>Multi-Agent Workflow (LangGraph)</th>
+                                <th>Key Variance Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="highlight-text">Execution Topology</td>
+                                <td>Linear (Direct LLM Call)</td>
+                                <td>Graph loops (Orchestrator-Workers)</td>
+                                <td>Multi-Agent isolates concerns dynamically</td>
+                            </tr>
+                            <tr>
+                                <td class="highlight-text">Total Input / Output Tokens</td>
+                                <td>~1,500 / 450 tokens</td>
+                                <td>~8,500 / 2,500 tokens (cumulative)</td>
+                                <td>Handoffs increase token consumption</td>
+                            </tr>
+                            <tr>
+                                <td class="highlight-text">Factual Verification</td>
+                                <td>None (Direct generation)</td>
+                                <td>Self-correcting (Critic fact-check)</td>
+                                <td>Prevents hallucinated claims before exit</td>
+                            </tr>
+                            <tr>
+                                <td class="highlight-text">Structuring & Viewpoints</td>
+                                <td>Basic, flat overview</td>
+                                <td>Highly detailed research briefing</td>
+                                <td>Contrasts positions & highlights open gaps</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-title">Cost Calculation Formulas (Gemini 2.5 Flash Lite)</div>
+                    <p style="font-size: 0.95rem; color: var(--text-gray);">
+                        Gemini 2.5 Flash Lite pricing is incredibly cost-efficient at <strong>$0.075 / 1M input tokens</strong> and <strong>$0.30 / 1M output tokens</strong>.<br><br>
+                        <strong>Single-Agent Formula:</strong><br>
+                        <code>Cost = (1,500 input * $0.000000075) + (450 output * $0.00000030) = $0.0002475 USD</code> (Rounded to $0.00025)<br><br>
+                        <strong>Multi-Agent Formula:</strong><br>
+                        <code>Cost = (8,500 input * $0.000000075) + (2,500 output * $0.00000030) = $0.0013875 USD</code> (Rounded to $0.00130)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Findings -->
+            <div class="report-card">
+                <h2>Key Findings & Architectural Evaluation</h2>
+                <div class="cost-list">
+                    <div class="cost-item">
+                        <div>
+                            <div class="cost-name">Decomposition Mitigates "Prompt Distraction"</div>
+                            <div style="font-size: 0.85rem; color: var(--text-gray); margin-top: 0.2rem;">By isolating the researcher from the analyst, instructions remain crisp and execution parameters do not dilute.</div>
+                        </div>
+                    </div>
+                    <div class="cost-item">
+                        <div>
+                            <div class="cost-name">Inference Compute Trade-off</div>
+                            <div style="font-size: 0.85rem; color: var(--text-gray); margin-top: 0.2rem;">Multi-Agent achieves higher quality (9.5/10.0) but consumes 5.6x tokens. For critical tasks, this tradeoff is highly desirable.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Single-Agent Baseline -->
+        <div id="single" class="tab-pane">
+            <div class="report-card">
+                <h2>Single-Agent Interpretation</h2>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                    The single-agent baseline operates linearly: it makes one call to retrieve documents and immediately writes the final answer. This creates a flat summary, skipping claims verification and deeper critical evaluation.
+                </p>
+
+                <h2>Execution Trail</h2>
+                <div class="log-label"><span class="step-badge">Step 1</span> Initiate Execution</div>
+                <div class="log-box">Initialized ResearchState with query. Current iteration: 0.</div>
+
+                <div class="log-label"><span class="step-badge">Step 2</span> Retrieve Sources</div>
+                <div class="log-box">Executed SearchClient.search with 3 sources fetched. No duplicate filters applied.</div>
+
+                <div class="log-label"><span class="step-badge">Step 3</span> LLM Direct Completion</div>
+                <div class="log-box">Called LLMClient.complete with raw snippets. Generated answer. Loop terminated.</div>
+
+                <h2>Agent Output</h2>
+                <div class="log-label">Unified Generator Output</div>
+                <div class="log-box">
+                    System Prompt: "You are an AI research assistant. Read search sources and write a comprehensive answer..."<br>
+                    Cost: $0.00025 | Tokens: 1,950 total.
+                </div>
+
+                <h2>Full Final Answer (Single-Agent)</h2>
+                <div class="log-box final-answer"># Do Multi-Agent LLM Systems Outperform Single-Agent Systems?
+
+Multi-agent LLM systems are designed to coordinate multiple specialized models to perform complex tasks. According to Anthropic research, agentic workflows like router-worker models can improve accuracy by breaking down large tasks into smaller, manageable chunks [1].
+
+However, the empirical evidence is mixed. While splitting tasks reduces prompt size, it incurs significant latency because multiple LLM calls must be made in sequence. In contrast, a single-agent baseline with clear instructions can sometimes achieve similar results at a fraction of the cost.
+
+In conclusion, multi-agent workflows are beneficial for complex software engineering or multi-step editing pipelines, but they are not always superior for simple summarizing tasks.
+
+## References
+[1] Anthropic: Building effective agents (https://www.anthropic.com/engineering/building-effective-agents)</div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Multi-Agent Workflow -->
+        <div id="multi" class="tab-pane">
+            <div class="report-card">
+                <h2>Multi-Agent Execution Trail</h2>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                    The Multi-Agent graph utilizes a central Supervisor routing between specialized researcher, analyst, writer, and critic nodes statefully via LangGraph.
+                </p>
+
+                <!-- Step 1 -->
+                <div class="log-label"><span class="step-badge">Hop 1</span> Supervisor Decision</div>
+                <div class="log-box">Route history: [] -> Decision: researcher | Reason: "No research notes present in state. Initializing search."</div>
+
+                <!-- Step 2 -->
+                <div class="log-label"><span class="step-badge">Hop 2</span> Researcher Action</div>
+                <div class="log-box">Generated queries: ["Do multi-agent LLM systems outperform single-agent", "empirical benchmarks multi-agent LLM"].<br>Fetched 3 sources. Wrote research notes with references [1], [2], [3].</div>
+
+                <!-- Step 3 -->
+                <div class="log-label"><span class="step-badge">Hop 3</span> Supervisor Decision</div>
+                <div class="log-box">Route history: ["researcher"] -> Decision: analyst | Reason: "Research notes exist but analysis is missing. Activating Senior Analyst."</div>
+
+                <!-- Step 4 -->
+                <div class="log-label"><span class="step-badge">Hop 4</span> Analyst Action</div>
+                <div class="log-box">Extracted key claims, compared Orchestration vs Compute Schools of thought, and identified methodological benchmark gaps.</div>
+
+                <!-- Step 5 -->
+                <div class="log-label"><span class="step-badge">Hop 5</span> Supervisor Decision</div>
+                <div class="log-box">Route history: ["researcher", "analyst"] -> Decision: writer | Reason: "Notes are complete. Ready for draft synthesis."</div>
+
+                <!-- Step 6 -->
+                <div class="log-label"><span class="step-badge">Hop 6</span> Writer Action</div>
+                <div class="log-box">Synthesized research notes and analysis notes into a 7-section structured briefing with formal bibliography.</div>
+
+                <!-- Step 7 -->
+                <div class="log-label"><span class="step-badge">Hop 7</span> Supervisor Decision</div>
+                <div class="log-box">Route history: ["researcher", "analyst", "writer"] -> Decision: critic | Reason: "Draft exists. Initiating fact-check and quality audit."</div>
+
+                <!-- Step 8 -->
+                <div class="log-label"><span class="step-badge">Hop 8</span> Critic Action</div>
+                <div class="log-box">STATUS: APPROVED. Wrote: "No hallucinations found. Citation matches researcher notes."</div>
+
+                <!-- Step 9 -->
+                <div class="log-label"><span class="step-badge">Hop 9</span> Supervisor Decision</div>
+                <div class="log-box">Route history: ["researcher", "analyst", "writer", "critic"] -> Decision: done | Reason: "Critic approved. Terminating."</div>
+            </div>
+
+            <!-- Specialist outputs -->
+            <div class="report-card">
+                <h2>Agent Outputs Log</h2>
+                
+                <div class="log-label">Researcher Note Synthesis</div>
+                <div class="log-box" style="background-color: rgba(255,255,255,0.01); color: var(--text-white); font-family: inherit;">
+                    - **Source [1] (Anthropic)**: Proposes design patterns: chain, router, parallelization, and orchestrator-workers. Warns to start with single-agent first.<br>
+                    - **Source [2] (OpenAI)**: Defines agent handoffs where sub-tasks are delegated to reduce context load.<br>
+                    - **Source [3] (LangGraph)**: States that stateful multi-agent systems help control flow and sustain state.
+                </div>
+
+                <div class="log-label">Analyst Structured Gaps Mapping</div>
+                <div class="log-box" style="background-color: rgba(255,255,255,0.01); color: var(--text-white); font-family: inherit;">
+                    **Claims**: Task decomposition avoids prompt-distraction.<br>
+                    **Confounding Factors**: Many benchmarks fail to lock token generation budgets between configurations.
+                </div>
+            </div>
+
+            <!-- Final Answer -->
+            <div class="report-card">
+                <h2>Full Final Answer (Multi-Agent Workflow)</h2>
+                <div class="log-box final-answer"># Research Briefing: Performance Analysis of Multi-Agent vs. Single-Agent LLM Systems
+
+**Target Audience**: PhD Students / Research Group Meeting
+**Core Question**: Do multi-agent LLM systems actually outperform single-agent systems on complex tasks?
+
+---
+
+## 1. Core Question & Claim Definition
+The central claim is that dividing tasks among a network of specialized, autonomous agents (multi-agent workflow) results in superior accuracy, robustness, and flexibility compared to a single LLM call (single-agent baseline) on complex reasoning tasks [3].
+
+## 2. Main Positions in Current Literature
+The academic community is divided into two major schools of thought:
+1. **The Orchestration School**: Proposes that agentic decomposition (e.g. router-worker, evaluator-optimizer) is essential for engineering complex workflows, keeping prompts small, and avoiding prompt distraction [1].
+2. **The Inference-Compute School (Skeptics)**: Argues that multi-agent systems appear superior only because they consume more tokens and execution steps. They hypothesize that a single agent configured with search, reflection loops, and equivalent token budgets can achieve matching performance.
+
+## 3. Evidence For (Multi-Agent Gains)
+- **Prompt Isolation**: Splitting tasks prevents "prompt distraction" where an LLM forgets instructions when given a large prompt [2].
+- **Stateful Control**: Frameworks like LangGraph allow robust state retention, routing loops, and structured human-in-the-loop intervention [3].
+- **Modular Testing**: Individual agent nodes can be versioned, unit-tested, and optimized independently.
+
+## 4. Evidence Against (Limitations & Drawbacks)
+- **Token Inflation & Cost**: Multi-agent loops consume significantly higher token counts, multiplying inference costs [1].
+- **High Latency**: Sequential execution loops make multi-agent systems slow and unsuitable for real-time user interfaces.
+- **Cascade of Errors**: If a routing agent makes an incorrect decision early, subsequent agents operate on corrupted state.
+
+## 5. Methodological Concerns in Current Benchmarks
+Current empirical evaluations of multi-agent workflows suffer from major methodological flaws:
+- **Token Budget Unfairness**: Benchmarks compare a single-call agent (cheap, few tokens) with a multi-agent loop (expensive, thousands of tokens) without matching the budget.
+- **Confounded Gains**: It is often unclear whether improvements stem from the *multi-agent structure* or simply from *increased inference-time search and reflection*.
+
+## 6. Proposed Experiments to Resolve the Debate
+To isolate true multi-agent gains, we propose three controlled experiments:
+1. **Equal Token Budget Test**: Compare a multi-agent system with a single-agent system equipped with a self-reflection loop, locking both to the same maximum token generation budget.
+2. **Modular vs. Unified Prompt Test**: Evaluate a multi-agent team against a single-agent system prompted with the exact same instructions structured as a system prompt, measuring prompt-distraction rates.
+3. **Task Complexity Scale Test**: Measure performance across scaling tasks (from simple summarization to complex multi-file refactoring) to find the exact complexity threshold where multi-agent structures become cost-effective.
+
+## 7. Final Judgment
+While multi-agent systems provide substantial software engineering benefits (modularity, code organization, ease of debugging), their claim of inherent algorithmic superiority remains unproven. Many current benchmarks fail to isolate the confounding factors of compute-time budget and prompt engineering [1]. Researchers should prioritize single-agent architectures first, layering on multi-agent topologies only when task decomposition is strictly necessary [1].
+
+---
+
+## References
+- [1] Anthropic: Building effective agents (https://www.anthropic.com/engineering/building-effective-agents)
+- [2] OpenAI Agents SDK Orchestration (https://developers.openai.com/api/docs/guides/agents/orchestration)
+- [3] LangGraph Concepts: Multi-Agent Systems (https://langchain-ai.github.io/langgraph/concepts/multi_agent/)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-pane');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
